@@ -15,14 +15,11 @@ namespace SlutProjekt
             int enemyX = 100;
             int enemyY = 300;
 
-            Vector2 player = new Vector2(playerX, playerY);
-            Vector2 enemy = new Vector2(enemyX, enemyY);     //flytta ner
-            Vector2 difference = enemy - player;
-            difference = Vector2.Normalize(difference);
-            enemy += difference;
-            enemy.X
+
+            //enemy.X;
 
 
+            Vector2 enemyVec = new Vector2(enemyX, enemyY);
 
 
             Raylib.InitWindow(1200, 800, "Zombie survival");
@@ -34,7 +31,8 @@ namespace SlutProjekt
 
 
                 map();
-                //player();
+                player(playerX, playerY);
+                enemy(enemyVec);
 
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
@@ -55,26 +53,44 @@ namespace SlutProjekt
                 }
 
 
+                Vector2 playerVec = new Vector2(playerX, playerY);
+                Vector2 difference = playerVec - enemyVec;
+                difference = Vector2.Normalize(difference);
+                enemyVec += difference * 1.5f;
 
 
 
 
-                Raylib.DrawRectangle(playerX - 8, playerY - 60, 15, 50, Color.GRAY);
-                Raylib.DrawCircle(playerX, playerY, 33, Color.BLUE);
-                Raylib.DrawCircle(playerX + 12, playerY - 13, 10, Color.WHITE);
-                Raylib.DrawCircle(playerX - 12, playerY - 13, 10, Color.WHITE);
-                Raylib.DrawCircle(playerX + 12, playerY - 16, 5, Color.BLACK);
-                Raylib.DrawCircle(playerX - 12, playerY - 16, 5, Color.BLACK);
 
 
 
-                Raylib.DrawRectangle(enemyX + 10, enemyY - 50, 10, 35, Color.GREEN);
-                Raylib.DrawRectangle(enemyX - 20, enemyY - 50, 10, 35, Color.GREEN);
-                Raylib.DrawCircle(enemyX, enemyY, 30, Color.GREEN);
-                Raylib.DrawCircle(enemyX + 12, enemyY - 13, 10, Color.WHITE);
-                Raylib.DrawCircle(enemyX - 12, enemyY - 13, 10, Color.WHITE);
-                Raylib.DrawCircle(enemyX + 12, enemyY - 16, 5, Color.RED);
-                Raylib.DrawCircle(enemyX - 12, enemyY - 16, 5, Color.RED);
+
+
+
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_L))
+                {
+                    enemyX += 4;
+                }
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_I))
+                {
+                    enemyY -= 4;
+                }
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_K))
+                {
+                    enemyY += 4;
+                }
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_J))
+                {
+                    enemyX -= 4;
+                }
+
+
+
+
+
+
+
+
 
 
 
@@ -84,14 +100,17 @@ namespace SlutProjekt
             }
 
         }
-        static void player()
+        static void player(int playerX, int playerY)
         {
-            // int playerX = 600;
-            // int playerY = 400;
+
+            Raylib.DrawRectangle(playerX - 8, playerY - 60, 15, 50, Color.GRAY);
+            Raylib.DrawCircle(playerX, playerY, 33, Color.BLUE);
+            Raylib.DrawCircle(playerX + 12, playerY - 13, 10, Color.WHITE);
+            Raylib.DrawCircle(playerX - 12, playerY - 13, 10, Color.WHITE);
+            Raylib.DrawCircle(playerX + 12, playerY - 16, 5, Color.BLACK);
+            Raylib.DrawCircle(playerX - 12, playerY - 16, 5, Color.BLACK);
 
 
-
-            //Raylib.DrawCircle(playerX, playerY, 30, Color.BLUE);
 
 
 
@@ -105,8 +124,16 @@ namespace SlutProjekt
 
         }
 
-        static void enemy()
+        static void enemy(Vector2 enemy)
         {
+
+            Raylib.DrawRectangle((int)enemy.X + 10, (int)enemy.Y - 50, 10, 35, Color.GREEN);
+            Raylib.DrawRectangle((int)enemy.X - 20, (int)enemy.Y - 50, 10, 35, Color.GREEN);
+            Raylib.DrawCircle((int)enemy.X, (int)enemy.Y, 30, Color.GREEN);
+            Raylib.DrawCircle((int)enemy.X + 12, (int)enemy.Y - 13, 10, Color.WHITE);
+            Raylib.DrawCircle((int)enemy.X - 12, (int)enemy.Y - 13, 10, Color.WHITE);
+            Raylib.DrawCircle((int)enemy.X + 12, (int)enemy.Y - 16, 5, Color.RED);
+            Raylib.DrawCircle((int)enemy.X - 12, (int)enemy.Y - 16, 5, Color.RED);
 
 
         }
