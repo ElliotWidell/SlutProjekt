@@ -14,6 +14,8 @@ namespace SlutProjekt
             int playerY = 400;
             int enemyX = 100;
             int enemyY = 300;
+            int playerHP = 3;
+            float damageTimer = 0;
 
 
             //enemy.X;
@@ -35,6 +37,8 @@ namespace SlutProjekt
                 enemy(enemyVec);
 
 
+
+
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
                 {
                     playerX += 4;
@@ -53,36 +57,15 @@ namespace SlutProjekt
                 }
 
 
+
+
                 Vector2 playerVec = new Vector2(playerX, playerY);
                 Vector2 difference = playerVec - enemyVec;
                 difference = Vector2.Normalize(difference);
                 enemyVec += difference * 1.5f;
 
 
-
-
-
-
-
-
-
-
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_L))
-                {
-                    enemyX += 4;
-                }
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_I))
-                {
-                    enemyY -= 4;
-                }
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_K))
-                {
-                    enemyY += 4;
-                }
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_J))
-                {
-                    enemyX -= 4;
-                }
+                playerHP = health(playerVec, enemyVec, playerHP, damageTimer);
 
 
 
@@ -134,6 +117,60 @@ namespace SlutProjekt
             Raylib.DrawCircle((int)enemy.X - 12, (int)enemy.Y - 13, 10, Color.WHITE);
             Raylib.DrawCircle((int)enemy.X + 12, (int)enemy.Y - 16, 5, Color.RED);
             Raylib.DrawCircle((int)enemy.X - 12, (int)enemy.Y - 16, 5, Color.RED);
+
+
+        }
+
+        static int health(Vector2 playerVec, Vector2 enemyVec, int playerHP, float damageTimer)
+        {
+
+            bool areOverlapping = Raylib.CheckCollisionCircles(playerVec, 33, enemyVec, 30);
+
+
+
+
+
+            if (areOverlapping && damageTimer == 0)
+            {
+                playerHP = -1;
+
+                damageTimer += Raylib.GetFrameTime();
+
+
+
+            }
+
+
+            if (damageTimer >= 20000)
+            {
+                damageTimer = 0;
+            }
+
+
+
+            if (playerHP <= 0)
+            {
+                Raylib.DrawRectangle(0, 0, 1200, 800, Color.RED);
+
+
+
+
+
+
+            }
+
+            if (playerHP == 2)
+            {
+                Raylib.DrawRectangle(0, 0, 1200, 800, Color.YELLOW);
+
+
+
+
+
+
+            }
+
+            return playerHP;
 
 
         }
