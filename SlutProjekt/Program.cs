@@ -79,6 +79,9 @@ namespace SlutProjekt
 
 
 
+
+
+
                 Raylib.EndDrawing();
             }
 
@@ -128,9 +131,17 @@ namespace SlutProjekt
 
 
 
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_M))
+            {
+                playerHP = +1;
+
+            }
 
 
-            if (areOverlapping && damageTimer == 0)
+
+
+
+            while (areOverlapping && damageTimer == 0)
             {
                 playerHP = -1;
 
